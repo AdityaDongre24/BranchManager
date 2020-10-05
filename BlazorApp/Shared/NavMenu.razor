@@ -1,0 +1,83 @@
+﻿@implements IDisposable
+
+<div class="top-row pl-4 navbar navbar-dark">
+    <a class="navbar-brand" href="">BlazorApp</a>
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <ul class="nav flex-column">
+        @if (!isLoggedIn)
+        {
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                    <span class="oi oi-account-login" aria-hidden="true"></span> Login
+                </NavLink>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="home/1" Match="NavLinkMatch.All">
+                    <span class="oi oi-home" aria-hidden="true"></span> Home
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="find" Match="NavLinkMatch.All">
+                    <span class="oi oi-file" aria-hidden="true"></span> Branch Finder
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" @onclick="OnLogOff" Match="NavLinkMatch.All">
+                    <span class="oi oi-account-logout" aria-hidden="true"></span> Log Off
+                </NavLink>
+            </li>
+        }
+    </ul>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private static bool isLoggedIn = false;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    [Inject]
+    public LoginStatus LoginStatus { get; set; }
+
+    [Inject]
+    private NavigationManager navigationManager { get; set; }
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    protected override void OnInitialized()
+    {
+        LoginStatus.OnLoggedIn += OnLoginStateChanged;
+    }
+
+    public void Dispose()
+    {
+        LoginStatus.OnLoggedIn -= OnLoginStateChanged;
+    }
+
+    public void OnLoginStateChanged()
+    {
+        isLoggedIn = true;
+        StateHasChanged();
+        navigationManager.NavigateTo("/home/1");
+    }
+
+    private void OnLogOff()
+    {
+        LoginStatus.IsLoggedIn = false;
+        isLoggedIn = false;
+        navigationManager.NavigateTo("/");
+    }
+
+}
