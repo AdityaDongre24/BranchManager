@@ -1,0 +1,9 @@
+C:\Users\Aditya\source\repos\DemoWebApplication\ClassLibrary\bin\Debug\netstandard2.0\ClassLibrary.deps.json
+C:\Users\Aditya\source\repos\DemoWebApplication\ClassLibrary\bin\Debug\netstandard2.0\ClassLibrary.dll
+C:\Users\Aditya\source\repos\DemoWebApplication\ClassLibrary\bin\Debug\netstandard2.0\ClassLibrary.pdb
+C:\Users\Aditya\source\repos\DemoWebApplication\ClassLibrary\obj\Debug\netstandard2.0\ClassLibrary.csprojAssemblyReference.cache
+C:\Users\Aditya\source\repos\DemoWebApplication\ClassLibrary\obj\Debug\netstandard2.0\ClassLibrary.AssemblyInfoInputs.cache
+C:\Users\Aditya\source\repos\DemoWebApplication\ClassLibrary\obj\Debug\netstandard2.0\ClassLibrary.AssemblyInfo.cs
+C:\Users\Aditya\source\repos\DemoWebApplication\ClassLibrary\obj\Debug\netstandard2.0\ClassLibrary.dll
+C:\Users\Aditya\source\repos\DemoWebApplication\ClassLibrary\obj\Debug\netstandard2.0\ClassLibrary.pdb
+C:\Users\Aditya\source\repos\DemoWebApplication\ClassLibrary\obj\Debug\netstandard2.0\ClassLibrary.csproj.CoreCompileInputs.cache
