@@ -1,0 +1,13 @@
+﻿@inherits BranchListBase
+<tr>
+    <th scope="row">@Branch.BranchName</th>
+    <td>@Branch.IFSCCode</td>
+    <td>@Branch.Bank</td>
+    <td>@Branch.State</td>
+    <td>@Branch.District</td>
+    <td>
+        <a class="btn btn-primary" href=@($"/EditBranch/{Branch.Id}")>Edit</a>
+        <button class="btn btn-danger" @onclick="OnDeleteClicked">Delete</button>
+    </td>
+</tr>
+

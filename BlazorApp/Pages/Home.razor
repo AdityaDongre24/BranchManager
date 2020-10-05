@@ -1,0 +1,38 @@
+﻿@page "/home/{Id}"
+@inherits HomeBase
+
+
+<button class="btn btn-primary" @onclick="OnAddBranch">Add Branch</button>
+<br />
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Branch Name</th>
+            <th scope="col">IFSC Code</th>
+            <th scope="col">Bank</th>
+            <th scope="col">State</th>
+            <th scope="col">District</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (branches != null)
+        {
+            @foreach (ClassLibrary.Branch branch in @branches)
+            {
+                <BranchList OnDeleteEntry="OnDeleteEntry" Branch="branch"></BranchList>
+            }
+        }
+    </tbody>
+</table>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item"><a class="page-link" @onclick="@(()=> SetPage(@PageIDPrevious))">Previous</a></li>
+        <li class="page-item"><a class="page-link" @onclick="@(()=> SetPage(@PageID1))">@PageID1</a></li>
+        <li class="page-item"><a class="page-link" @onclick="@(()=> SetPage(@PageID2))">@PageID2</a></li>
+        <li class="page-item"><a class="page-link" @onclick="@(()=> SetPage(@PageID3))">@PageID3</a></li>
+        <li class="page-item"><a class="page-link" @onclick="@(()=> SetPage(@PageIDNext))">Next</a></li>
+    </ul>
+</nav>

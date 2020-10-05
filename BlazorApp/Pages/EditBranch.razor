@@ -1,0 +1,72 @@
+﻿@page "/EditBranch/{Id}"
+@inherits EditBranchBase
+
+<h3>Edit Branch</h3>
+<hr>
+@if (Branch != null)
+{
+    <EditForm Model="Branch" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator />
+        <div class="form-group row">
+            <label class="col-form-label col-sm-2" for="BranchName">Branch Name</label>
+            <div class="col-sm-10">
+                <InputText id="BranchName" @bind-Value="Branch.BranchName"></InputText>
+                <ValidationMessage For="@(()=> Branch.BranchName)"></ValidationMessage>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-form-label col-sm-2" for="IFSCCode">IFSC Code</label>
+            <div class="col-sm-10">
+                <InputText id="IFSCCode" @bind-Value="Branch.IFSCCode"></InputText>
+                <ValidationMessage For="@(()=> Branch.IFSCCode)"></ValidationMessage>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-form-label col-sm-2" for="Bank">Bank Name</label>
+            <div class="col-sm-10">
+                <InputSelect class="col-sm-4" @bind-Value="BankId">
+                    @if (Banks != null)
+                        {
+                        @foreach (ClassLibrary.Bank bank in Banks)
+                            {
+                            <option value="@bank.Id">@bank.Name</option>
+                            }
+                        }
+                    <ValidationMessage For="@(()=> BankId)"></ValidationMessage>
+                </InputSelect>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-form-label col-sm-2" for="State">State Name</label>
+            <div class="col-sm-10">
+                <InputSelect class="col-sm-4" @bind-Value="StateId">
+                    @if (States != null)
+                        {
+                        @foreach (ClassLibrary.State state in States)
+                            {
+                            <option value="@state.Id">@state.Name</option>
+                            }
+                        }
+                </InputSelect>
+                <ValidationMessage For="@(()=> StateId)"></ValidationMessage>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-form-label col-sm-2" for="BranchName">District Name</label>
+            <div class="col-sm-10">
+                <InputSelect class="col-sm-4" @bind-Value="DistrictId">
+                    @if (Districts != null)
+                        {
+                        @foreach (ClassLibrary.District district in Districts.FindAll(q => q.StateID == int.Parse(StateId)))
+                            {
+                            <option value="@district.Id">@district.Name</option>
+                            }
+                        }
+                </InputSelect>
+                <ValidationMessage For="@(()=> DistrictId)"></ValidationMessage>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </EditForm>
+
+}

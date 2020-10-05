@@ -1,0 +1,97 @@
+﻿@page "/find"
+@inherits FindBankBase
+
+<h1>Finder</h1>
+<hr />
+
+<EditForm Model="BranchDetails">
+    <div class=" form-group row">
+        <lable class="col-form-label col-sm-2">Bank</lable>
+        <div class="col-sm-10">
+            <InputSelect @bind-Value="BankID">
+                @if (Banks != null)
+                {
+                    @foreach (ClassLibrary.Bank bank in Banks)
+                    {
+                        <option value="@bank.Id">@bank.Name</option>
+                    }
+                }
+            </InputSelect>
+        </div>
+    </div>
+    <div class=" form-group row">
+        <lable class="col-form-label col-sm-2">State</lable>
+        <div class="col-sm-10">
+            <InputSelect @bind-Value="StateID">
+                @if (States != null)
+                {
+                    @foreach (ClassLibrary.State state in States)
+                    {
+                        <option value="@state.Id">@state.Name</option>
+                    }
+                }
+            </InputSelect>
+        </div>
+    </div>
+    <div class=" form-group row">
+        <lable class="col-form-label col-sm-2">District</lable>
+        <div class="col-sm-10">
+            <InputSelect @bind-Value="DistrictId">
+                @if (Districts != null)
+                {
+                    @foreach (ClassLibrary.District district in Districts.FindAll(q => q.StateID == int.Parse(StateID)))
+                    {
+                        <option value="@district.Id">@district.Name</option>
+                    }
+                }
+            </InputSelect>
+        </div>
+    </div>
+    <button @onclick="OnFindClicked" class="btn btn-dark">Find</button>
+</EditForm>
+
+<br />
+<br />
+<b>OR</b>
+<br />
+<br />
+
+<EditForm Model="BranchDetails" OnValidSubmit="OnDetailsClicked">
+    <DataAnnotationsValidator />
+    <div class="form-group row">
+        <label class="col-form-label col-sm-2">Entre IFSE Code</label>
+        <InputText @bind-Value="BranchDetails.IFSCCode"></InputText>
+        <ValidationMessage For="@(()=> BranchDetails.IFSCCode)"></ValidationMessage>
+    </div>
+    <br />
+    <button class="btn btn-dark">Get Details</button>
+</EditForm>
+
+<br />
+<br />
+
+@if (ResultBranch != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Branch Name</th>
+                <th scope="col">IFSC Code</th>
+                <th scope="col">Bank</th>
+                <th scope="col">State</th>
+                <th scope="col">District</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">@ResultBranch.BranchName</th>
+                <td>@ResultBranch.IFSCCode</td>
+                <td>@ResultBranch.Bank</td>
+                <td>@ResultBranch.State</td>
+                <td>@ResultBranch.District</td>
+            </tr>
+        </tbody>
+
+    </table>
+
+}
